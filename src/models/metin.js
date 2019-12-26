@@ -2,9 +2,11 @@ import {getMetinList} from '@/services/metin';
 
 const MetinModel = {
   namespace: 'metin',
-  state: {},
+  state: {
+    'res': "",
+  },
   effects: {
-    * fetch(_, {call, put}) {
+    * fetch(payload, {call, put}) {
       const response = yield call(getMetinList);
       yield put({
         type: 'metinList',
@@ -13,26 +15,6 @@ const MetinModel = {
     },
 
   },
-  reducers: {
-    saveCurrentUser(state, action) {
-      return {...state, currentUser: action.payload || {}};
-    },
 
-    changeNotifyCount(
-      state = {
-        currentUser: {},
-      },
-      action,
-    ) {
-      return {
-        ...state,
-        currentUser: {
-          ...state.currentUser,
-          notifyCount: action.payload.totalCount,
-          unreadCount: action.payload.unreadCount,
-        },
-      };
-    },
-  },
 };
 export default MetinModel;

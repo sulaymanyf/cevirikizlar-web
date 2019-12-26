@@ -1,6 +1,8 @@
 import React from 'react';
 import {Table, Tag, Pagination, Divider, Popconfirm} from 'antd';
 import styles from './index.less';
+import {connect} from 'dva';
+
 
 const columns = [
   {
@@ -79,27 +81,18 @@ const data = [
 ];
 
 
-class MetinList extends React.Component {
-  state = {};
-
-  render() {
-    const {state} = this;
-    return (
-      <div>
-        <Table
-          columns={columns} dataSource={data}
-          pagination={false}
-        />
-        <Pagination defaultCurrent={6} total={500} style={{marginTop: 12}}/>
-      </div>
-    );
-  }
+function MetinList(props) {
+  console.log(props.res);
+  return (
+    <div>
+      <Table
+        columns={columns} dataSource={data}
+        pagination={false}
+      />
+      <Pagination defaultCurrent={6} total={500} style={{marginTop: 12}}/>
+    </div>
+  );
 }
 
-export default () => (
-  <div className={styles.container}>
-    <div id="components-table-demo-dynamic-settings">
-      <MetinList/>
-    </div>
-  </div>
-);
+export default connect(({res}) => ({res}))(MetinList);
+

@@ -1,33 +1,26 @@
 import {PageHeaderWrapper} from '@ant-design/pro-layout';
-import React, {useState, useEffect, Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Spin} from 'antd';
 import styles from './index.less';
 import MetinList from './MetinList';
 import {connect} from 'dva';
 
+function Metin(props) {
+  const [loading, setLoading] = useState(true);
+  console.log(props.hero);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 300);
+  }, []);
+  return (
+    <PageHeaderWrapper content="这是一个新页面，从这里进行开发！">
+      <div className={styles.main}>
+        <Spin spinning={loading} size="large"></Spin>
+        <MetinList/>
+      </div>
 
-class Metin extends Component {
-
-  render() {
-
-
-    return (
-      <PageHeaderWrapper content="这是一个新页面，从这里进行开发！">
-        <div className={styles.main}>
-          <MetinList/>
-          <div
-            style={{
-              paddingTop: 100,
-              textAlign: 'center',
-            }}
-          >
-          </div>
-        </div>
-
-
-      </PageHeaderWrapper>
-    );
-  }
-}
-
-export default connect()(Metin);
+    </PageHeaderWrapper>
+  );
+};
+export default connect(({res}) => ({res}))(Metin);
